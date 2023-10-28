@@ -98,6 +98,19 @@ function saveScore() {
   const scores=JSON.parse(localStorage.getItem('scores'))||[]
   scores.push(newScore)
   localStorage.setItem('scores',JSON.stringify(scores))
-  
+  highscores()
+}
+function highscores() {
+  document.querySelector('.end-quiz').classList.add("hide")
+  document.getElementById('high-scores').classList.remove('hide')
+  const scores=JSON.parse(localStorage.getItem('scores'))||[]
+  scores.sort((a,b)=>{
+    return b.score-a.score
+  })
+  scores.forEach(score=>{
+    let liEl=document.createElement('li')
+    liEl.textContent=`${score.initials} - ${score.score}`
+    document.querySelector('ol').append(liEl)
+  })
 }
 startbtnEl.onclick = startQuiz
